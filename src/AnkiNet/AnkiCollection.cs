@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using AnkiNet.CollectionFile.Model;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 [assembly:InternalsVisibleTo("AnkiNet.Tests")]
@@ -17,6 +18,7 @@ public class AnkiCollection
     private readonly Dictionary<long, AnkiDeck> _decks;
     private readonly Dictionary<long, AnkiNote> _notes;
     private readonly Dictionary<long, AnkiCard> _cards;
+    private readonly Dictionary<long, AnkiRevLog> _revLogs;
 
     /// <summary>
     /// Create a new Anki collection.
@@ -30,7 +32,11 @@ public class AnkiCollection
         };
         _notes = new Dictionary<long, AnkiNote>();
         _cards = new Dictionary<long, AnkiCard>();
+        _revLogs = new Dictionary<long, AnkiRevLog>();
     }
+    internal static AnkiRevLog ToPublicModel(RevisionLog log) =>
+    new(log.Id, log.CardId, log.UpdateSequenceNumber, log.Ease, log.Interval,
+        log.LastInterval, log.Factor, log.TimeTookMs, log.RevisionType);
 
     /// <summary>
     /// Lists all decks of the collection.
@@ -46,6 +52,11 @@ public class AnkiCollection
     /// Get the default deck (with id 1) of the collection.
     /// </summary>
     public AnkiDeck DefaultDeck => _decks[DefaultDeckId];
+
+    /// <summary>
+    /// Returns a copy of all revision logs in the collection.
+    /// </summary>
+    public AnkiRevLog[] RevisionLogs => _revLogs.Values.ToArray();
 
     /// <summary>
     /// Gets the deck associated to the given deck id.
@@ -216,5 +227,13 @@ public class AnkiCollection
             _cards.Add(id, newCard);
             _decks[deckId].AddCard(newCard);
         }
+    }
+
+    // Add method to add revision logs
+    internal void AddRevisionLog(RevisionLog log)
+    {
+        var record = new AnkiRevLog(log.Id, log.CardId, log.UpdateSequenceNumber, log.Ease, log.Interval,
+        log.LastInterval, log.Factor, log.TimeTookMs, log.RevisionType);
+        _revLogs.Add(log.Id, record);
     }
 }

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>Anki.NET</AssemblyName>
     <RootNamespace>AnkiNet</RootNamespace>
 
@@ -12,10 +12,10 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
-    <PackageId>Anki.NET</PackageId>
-    <PackageVersion>2.0</PackageVersion>
-    <Authors>Lysrt,Clement-Jean</Authors>
-    <Description>Anki.NET allows you to create Anki decks and cards from your C# application.</Description>
+    <PackageId>Caleb.Anki.NET</PackageId>
+    <PackageVersion>2.0.1</PackageVersion>
+    <Authors>Caleb Sousa,Lysrt,Clement-Jean</Authors>
+    <Description>Anki.NET allows you to create Anki decks and cards from your C# application, now with support for revision logs.</Description>
     <PackageTags>anki deck decks card cards</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/lysrt/Anki.NET</PackageProjectUrl>
@@ -56,7 +56,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>

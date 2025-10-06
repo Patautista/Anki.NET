@@ -161,6 +161,7 @@ internal sealed class InternalConverter
 
         var allCards = collection.Decks.SelectMany(d => d.Cards).ToArray();
         var allNotes = allCards.Select(d => d.Note).Distinct().ToArray();
+        var allRevisionLogs = collection.RevisionLogs;
         var deckIdByCardId = collection.Decks
             .SelectMany(d => d.Cards.ToDictionary(c => c.Id, c => d.Id))
             .ToDictionary(d => d.Key, d => d.Value);
@@ -200,7 +201,20 @@ internal sealed class InternalConverter
             ""
         )).ToArray();
 
-        result.RevLogs = Array.Empty<RevisionLog>();
+
+
+        result.RevLogs = allRevisionLogs.Select(log => new RevisionLog(
+            log.Id,
+            log.CardId,
+            log.UpdateSequenceNumber,
+            log.Ease,
+            log.Interval,
+            log.LastInterval,
+            log.Factor,
+            log.TimeTookMs,
+            log.RevisionType
+        )).ToArray();
+
         result.Graves = Array.Empty<Grave>();
         
         return result;
@@ -254,7 +268,16 @@ internal sealed class InternalConverter
             resultCollection.AddNoteWithCards(note.Id, deckId, note.ModelId, note.Fields, ids);
         }
 
-        // Ignore RevLogs and Graves
+        // Convert RevLogs
+        if (collection.RevLogs != null)
+        {
+            foreach (var revLog in collection.RevLogs)
+            {
+                resultCollection.AddRevisionLog(revLog);
+            }
+        }
+
+        // Ignore Graves
 
         return resultCollection;
     }
