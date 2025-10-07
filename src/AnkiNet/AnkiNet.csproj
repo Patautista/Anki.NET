@@ -13,7 +13,7 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
     <PackageId>Caleb.Anki.NET</PackageId>
-    <PackageVersion>2.0.1</PackageVersion>
+    <PackageVersion>2.0.2</PackageVersion>
     <Authors>Caleb Sousa,Lysrt,Clement-Jean</Authors>
     <Description>Anki.NET allows you to create Anki decks and cards from your C# application, now with support for revision logs.</Description>
     <PackageTags>anki deck decks card cards</PackageTags>
