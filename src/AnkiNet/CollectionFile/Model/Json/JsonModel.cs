@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace AnkiNet.CollectionFile.Model.Json;
 
@@ -81,7 +82,7 @@ internal class JsonModel
     /// Anki saves the tags of the last added note to the current model, use an empty array [].
     /// </summary>
     [JsonPropertyName("tags")]
-    public string[] LastAddedNoteTags { get; set; }
+    public JsonElement LastAddedNoteTags { get; set; }
 
     /// <summary>
     /// JSONArray containing object of CardTemplate for each card in model.

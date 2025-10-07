@@ -1,5 +1,6 @@
 ﻿using AnkiNet.CollectionFile.Model;
 using AnkiNet.CollectionFile.Model.Json;
+using System.Text.Json;
 
 namespace AnkiNet.CollectionFile;
 
@@ -56,7 +57,7 @@ internal sealed class InternalConverter
                     LatexPre = "\\documentclass[12pt]{article}\n\\special{papersize=3in,5in}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amssymb,amsmath}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0in}\n\\begin{document}\n",
                     LatexSvg = false,
                     BrowserSortField = 0,
-                    LastAddedNoteTags = null,
+                    LastAddedNoteTags = JsonSerializer.SerializeToElement<object>(null),
                     CardTemplates = nt.CardTypes.Select(ct => new JsonCardTemplate
                     {
                         TemplateName = ct.Name,
